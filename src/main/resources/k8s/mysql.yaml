@@ -2,15 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: showcase-mysql
-  labels:
-    app: showcase
 spec:
+  type: NodePort
   ports:
     - port: 3306
+      targetPort: 3306
   selector:
-    app: showcase
-    tier: mysql
-#  clusterIP: None
+    app: showcase-mysql
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -57,20 +55,16 @@ apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
   name: showcase-mysql
-  labels:
-    app: showcase
 spec:
   selector:
     matchLabels:
-      app: showcase
-      tier: mysql
+      app: showcase-mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: showcase
-        tier: mysql
     spec:
       containers:
         - image: tobi312/rpi-mariadb:10.1
