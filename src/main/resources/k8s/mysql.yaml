@@ -64,7 +64,7 @@ spec:
   template:
     metadata:
       labels:
-        app: showcase
+        app: showcase-mysql
     spec:
       containers:
         - image: tobi312/rpi-mariadb:10.1
