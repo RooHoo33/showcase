@@ -41,6 +41,18 @@ spec:
   hostPath:
     path: "/var/lib/mysql"
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: showcase-mysql
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: showcase-mysql
+---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
